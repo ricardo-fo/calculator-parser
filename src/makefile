@@ -17,16 +17,28 @@ C_SRC=$(wildcard *.c)
 # Arquivos objeto, i.e. extensão .o
 OBJ=$(C_SRC:.c=.o)
 
+# Diretório de objetos
+OBJDIR=obj
+
 ##### Regras e dependências #####
 $(PROJ_NAME): $(OBJ)
 	$(CC) -o $(PROJ_NAME) $(OBJ) $(CFLAGS) -lm
 	@echo "\nCompilação finalizada!\nDigite 'make run' e tecle <enter> para executar a aplicacao"
 
-main.o: main.c utils.o
+main.o: main.c utils.h parser.h
 	$(CC) -c main.c $(CFLAGS)
 
 utils.o: utils.h
 	$(CC) -c utils.c $(CFLAGS)
+
+parser.o: parser.h lexical_analyzer.h token.h
+	$(CC) -c parser.c $(CFLAGS)
+
+token.o: token.h
+	$(CC) -c token.c $(CFLAGS)
+
+lexical_analyzer.o: lexical_analyzer.h token.h
+	$(CC) -c lexical_analyzer.c $(CFLAGS)
 
 # Executar
 run:

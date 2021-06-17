@@ -1,6 +1,6 @@
 # Calculator Parser  
 
-> Autores:  
+> Grupo:  
 > [Alexandre Saura][1]  
 > [Fábio Thomaz][2]  
 > [Ricardo Oliveira][3]  
@@ -43,7 +43,7 @@ make mrproper
 - [x] Criar o repositório;  
 - [x] Ler a entrada do usuário;  
 - [ ] Transformar a entrada em um vetor de tokens;  
-- [ ] Fazer a análise léxica da entrada;  
+- [x] Fazer a análise léxica da entrada;  
 - [ ] Criar a tabela sintática;  
 - [ ] Criar a pilha sintática;  
 - [ ] Criar a tabela de ações;  
