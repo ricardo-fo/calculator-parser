@@ -42,7 +42,7 @@ make mrproper
 ## Tarefas  
 - [x] Criar o repositório;  
 - [x] Ler a entrada do usuário;  
-- [ ] Transformar a entrada em um vetor de tokens;  
+- [x] Transformar a entrada em um vetor de tokens;
 - [x] Fazer a análise léxica da entrada;  
 - [ ] Criar a tabela sintática;  
 - [ ] Criar a pilha sintática;  

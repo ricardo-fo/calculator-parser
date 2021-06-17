@@ -1,4 +1,4 @@
-#include "lexical_analyzer.h"
+#include "lexical_analyser.h"
 #include "token.h"
 #include <stdio.h>
 #include <string.h>

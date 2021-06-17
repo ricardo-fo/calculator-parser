@@ -31,14 +31,14 @@ main.o: main.c utils.h parser.h
 utils.o: utils.h
 	$(CC) -c utils.c $(CFLAGS)
 
-parser.o: parser.h lexical_analyzer.h token.h
+parser.o: parser.h lexical_analyser.h token.h
 	$(CC) -c parser.c $(CFLAGS)
 
 token.o: token.h
 	$(CC) -c token.c $(CFLAGS)
 
-lexical_analyzer.o: lexical_analyzer.h token.h
-	$(CC) -c lexical_analyzer.c $(CFLAGS)
+lexical_analyser.o: lexical_analyser.h token.h
+	$(CC) -c lexical_analyser.c $(CFLAGS)
 
 # Executar
 run:
