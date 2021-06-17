@@ -24,10 +24,10 @@ void lexical_analysis(const char * expression) {
 void syntatic_analysis(const char * expression) {
   char ** tokens = extract_tokens(expression);
 
-  // for(int i = 0;; i++) {
-  //   if (tokens[i] == NULL) break;
-  //   printf("%s\n", tokens[i]);
-  // }
+  // Teste do vetor
+  for(int i = 0; tokens[i] != NULL; i++) {
+    printf("%s\n", tokens[i]);
+  }
 
   // create_syntax_table(tokens);
   // create_syntax_stack(tokens);
@@ -61,6 +61,8 @@ char ** extract_tokens(const char * expression) {
   tokens = (char **) realloc(tokens, sizeof(*tokens) * (idx + 1));
   tokens[idx] = (char *) malloc(sizeof(char));
   tokens[idx] = NULL;
+
+  free(cpy);
 
   return tokens;
 }
