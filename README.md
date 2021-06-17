@@ -1,10 +1,10 @@
 # Calculator Parser  
 
 > Autores:  
-> - [Alexandre Saura][1]  
-> - [Fábio Thomaz][2]  
-> - [Ricardo Oliveira][3]  
-> - [Rodrigo Suarez][4]  
+> [Alexandre Saura][1]  
+> [Fábio Thomaz][2]  
+> [Ricardo Oliveira][3]  
+> [Rodrigo Suarez][4]  
 >  
 > Prof.: José Fontebasso Neto.  
 > Universidade Católica de Santos, 2021.  
@@ -15,14 +15,14 @@
 [4]: https://github.com/rodrigosmoreira/  
 
 ## Analisador sintático de uma calculadora em notação pós-fixa  
-Este projeto é uma aplicação capaz de fazer a análise sintática de uma entrada, em notação pós-fixa, de *inputs* de uma calculadora. Através dos tokens inseridos como entrada, no formato **<dígito>** ou **<operador>** ou **<comando>**, o programa deve indicar os estados das análises e se a entrada é válida ou não segundo a gramática da calculadora pós-fixa.  
+Este projeto é uma aplicação capaz de fazer a análise sintática de uma entrada, em notação pós-fixa, de *inputs* de uma calculadora. Através dos tokens inseridos como entrada, no formato *<dígito>* ou *<operador>* ou *<comando>*, o programa deve indicar os estados das análises e se a entrada é válida ou não segundo a gramática da calculadora pós-fixa.  
 
 ## Recursos necessários  
 Para executar o projeto é necessário um compilador de da linguagem C.  
 
 ## Como executar a aplicação  
 ### No Linux  
-Para compilar, execute:  
+Para compilar, execute no terminal:  
 ```
 make
 ```
@@ -41,11 +41,11 @@ make mrproper
 
 ## Tarefas  
 - [x] Criar o repositório;  
-- [] Ler a entrada do usuário;  
-- [] Transformar a entrada em um vetor de tokens;  
-- [] Fazer a análise léxica da entrada;  
-- [] Criar a tabela sintática;  
-- [] Criar a pilha sintática;  
-- [] Criar a tabela de ações;  
-- [] Criar a tabela de *goto*;  
-- [] Fazer a análise sintática.  
+- [x] Ler a entrada do usuário;  
+- [ ] Transformar a entrada em um vetor de tokens;  
+- [ ] Fazer a análise léxica da entrada;  
+- [ ] Criar a tabela sintática;  
+- [ ] Criar a pilha sintática;  
+- [ ] Criar a tabela de ações;  
+- [ ] Criar a tabela de *goto*;  
+- [ ] Fazer a análise sintática.  
