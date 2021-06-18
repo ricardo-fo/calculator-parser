@@ -45,7 +45,7 @@ make mrproper
 - [x] Transformar a entrada em um vetor de tokens;
 - [x] Fazer a análise léxica da entrada;  
 - [ ] Criar a tabela sintática;  
-- [ ] Criar a pilha sintática;  
+- [x] Criar a pilha sintática;  
 - [ ] Criar a tabela de ações;  
 - [ ] Criar a tabela de *goto*;  
 - [ ] Fazer a análise sintática.  

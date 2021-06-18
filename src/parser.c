@@ -56,7 +56,6 @@ char ** extract_tokens(const char * expression) {
     idx++;
   } while(( (int)(strlen(cpy)/sizeof(char)) ) > 0);
 
-
   // Último elemento
   tokens = (char **) realloc(tokens, sizeof(*tokens) * (idx + 1));
   tokens[idx] = (char *) malloc(sizeof(char));
