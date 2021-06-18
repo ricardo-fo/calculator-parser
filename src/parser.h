@@ -1,6 +1,14 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+struct valor_pilha
+{
+    int estado;
+    char acao;
+};
+
+struct valor_pilha valorPilha;
+
 // Insere o indicador de fim de sentença
 void insert_end_sentence(char *);
 
