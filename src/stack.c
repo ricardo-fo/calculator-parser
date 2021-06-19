@@ -5,6 +5,7 @@
 
 Node * insert_node(int * idx, char * state) {
   Node * node = (Node *) malloc(sizeof(Node));
+
   if (idx == NULL) {
     node->state = (char *) malloc(sizeof(char) * strlen(state));
     strcpy(node->state, state);
@@ -30,16 +31,23 @@ Stack * init_stack() {
 }
 
 void push(Stack * stack, Node * node) {
-  stack = (Stack *) realloc(stack, sizeof(Node *) * ++(stack->top));
-  stack->nodes = (Node **) realloc(stack->nodes, sizeof(Node *) * stack->top);
+    int top = ++(stack->top);
+
+  stack = (Stack *) realloc(stack, sizeof(Node *) * top);
+  printf("teste -> %d\n", top);
+  stack->top = top;
+  printf("teste\n");
+  stack->nodes = (Node **) realloc(stack->nodes, sizeof(Node *) * top);
+  printf("teste\n");
   stack->nodes[stack->top] = node;
 }
 
 Node * pop(Stack * stack) {
   if (!stack_is_empty(stack)) {
     Node * node = stack->nodes[stack->top];
-    stack = (Stack *) realloc(stack, sizeof(Node *) * stack->top--);
 
+    //stack = (Stack *) realloc(stack, sizeof(Node *) * stack->top--);
+    stack->top--;
     return node;
   }
 

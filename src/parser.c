@@ -24,37 +24,44 @@ void lexical_analysis(const char * expression) {
 
 // Realiza a análise sintática
 void syntatic_analysis(const char * expression) {
-  char ** tokens = extract_tokens(expression);
+    char ** tokens = extract_tokens(expression);
 
-   Stack * pilha = init_stack();
+    Stack * pilha = init_stack();
 
-   Node * nodeInicial = insert_node(0, read_str(NULL));
+    int estadoZero = 0;
 
-   push(pilha, nodeInicial);
+    Node * nodeInicial = insert_node(&estadoZero, NULL);
 
-Node * acaoNo, * estadoNo;
+    push(pilha, nodeInicial);
+    Node * acaoNo, * estadoNo;
 
   // Teste do vetor
   for(int i = 0; tokens[i] != NULL; i++) {
 
-    Node * noTopo = pop(pilha);
-
-    int estadoTopo = noTopo->idx;
-
+    int estadoTopo = pilha->nodes[pilha->top]->idx;
     char * token = tokens[i];
 
-    char * acao = "";
+    char acao[100] = "";
     int estadoAtual;
 
     // Vai definir se vai reduzir ou shift
+
+    printf("Vai analisar:\nToken -> %s\nEstado -> %d\n\n", token, estadoTopo);
+
+    if(strcmp(token, "<enter>") == 0) {
+            printf("Pula pro proximo\n");
+        continue;
+    }
 
     switch(estadoTopo) {
 
         case 0:
 
+            printf("Estado zero\n");
+
             strcpy(acao, "s");
 
-            if(token[0] >= '0' && token[0] <= '9') {
+            if(token[1] >= '0' && token[1] <= '9') {
                 estadoAtual = 4;
             }
             else strcpy(acao, "e");
@@ -64,10 +71,10 @@ Node * acaoNo, * estadoNo;
         case 1:
             strcpy(acao, "s");
 
-            if(strcmp(token, "sen")) estadoAtual = 6;
-            else if(strcmp(token, "cos")) estadoAtual = 6;
-            else if(strcmp(token, "exp")) estadoAtual = 6;
-            else if(token[0] >= '0' && token[0] <= '9') estadoAtual = 4;
+            if(strcmp(token, "<sen>")) estadoAtual = 6;
+            else if(strcmp(token, "<cos>")) estadoAtual = 6;
+            else if(strcmp(token, "<exp>")) estadoAtual = 6;
+            else if(token[1] >= '0' && token[1] <= '9') estadoAtual = 4;
             else strcpy(acao, "e");
 
             break;
@@ -75,11 +82,11 @@ Node * acaoNo, * estadoNo;
         case 2:
             strcpy(acao, "r");
 
-            if(token[0] >= '0' && token[0] <= '9') {
+            if(token[1] >= '0' && token[1] <= '9') {
                 strcpy(acao, "s");
                 estadoAtual = 4;
             }
-            else if(strcmp(token, "sen") || strcmp(token, "cos") || strcmp(token, "exp") || token[0] == '$') {
+            else if(strcmp(token, "<sen>") || strcmp(token, "<cos>") || strcmp(token, "<exp>") || token[1] == '$') {
                 strcpy(acao, "r");
                 estadoAtual = 3;
             }
@@ -90,7 +97,7 @@ Node * acaoNo, * estadoNo;
 
         case 3:
 
-            if(token[0] == '*' || token[0] == '$') strcpy(acao, "e");
+            if(token[1] == '*' || token[1] == '$') strcpy(acao, "e");
             else {
                 strcpy(acao, "e");
             };
@@ -106,13 +113,13 @@ Node * acaoNo, * estadoNo;
 
         case 5:
 
-            if((token[0] >= '0' && token[0] <= '9') || token[0] == '/' || strcmp(token, "sen")  || strcmp(token, "cos")  || strcmp(token, "exp")) {
+            if((token[1] >= '0' && token[1] <= '9') || token[1] == '/' || strcmp(token, "<sen>")  || strcmp(token, "<cos>")  || strcmp(token, "<exp>")) {
                 estadoAtual = 3;
                 strcpy(acao, "r");
             }
-            else if(token[0] == '+' || token[0] == '-') {
+            else if(token[1] == '+' || token[1] == '-') {
                 strcpy(acao, "s");
-                estadoAtual = token[0] == '+' ? 11 : 12;
+                estadoAtual = token[1] == '+' ? 11 : 12;
             }
             else strcpy(acao, "e");
 
@@ -120,7 +127,7 @@ Node * acaoNo, * estadoNo;
 
         case 6:
 
-            if(token[0] == '*') {
+            if(token[1] == '*') {
                 strcpy(acao, "s");
                 estadoAtual = 13;
             }
@@ -130,7 +137,7 @@ Node * acaoNo, * estadoNo;
 
         case 7:
 
-            if(token[0] == '*') {
+            if(token[1] == '*') {
                 strcpy(acao, "s");
                 estadoAtual = 14;
             }
@@ -140,7 +147,7 @@ Node * acaoNo, * estadoNo;
 
         case 8:
 
-            if(token[0] == '*') {
+            if(token[1] == '*') {
                 strcpy(acao, "s");
                 estadoAtual = 15;
             }
@@ -152,17 +159,17 @@ Node * acaoNo, * estadoNo;
 
             strcpy(acao, "s");
 
-            if(strcmp(token, "sen")) estadoAtual = 8;
-            else if(strcmp(token, "cos")) estadoAtual = 7;
-            else if(strcmp(token, "exp")) estadoAtual = 6;
-            else if(token[0] >= '0' && token[0] <= '9') estadoAtual = 4;
+            if(strcmp(token, "<sen>")) estadoAtual = 8;
+            else if(strcmp(token, "<cos>")) estadoAtual = 7;
+            else if(strcmp(token, "<exp>")) estadoAtual = 6;
+            else if(token[1] >= '0' && token[1] <= '9') estadoAtual = 4;
             else strcpy(acao, "e");
 
             break;
 
         case 10:
 
-            switch(token[0]) {
+            switch(token[1]) {
                 case '*':
                 case '/':
                     strcpy(acao, "e");
@@ -177,7 +184,7 @@ Node * acaoNo, * estadoNo;
 
         case 11:
 
-            if(strcmp(token, "sen") || strcmp(token, "cos") ||strcmp(token, "exp")) strcpy(acao, "e");
+            if(strcmp(token, "<sen>") || strcmp(token, "<cos>") ||strcmp(token, "<exp>")) strcpy(acao, "e");
             else {
                 strcpy(acao, "r");
                 estadoAtual = 1;
@@ -187,7 +194,7 @@ Node * acaoNo, * estadoNo;
 
         case 12:
 
-            if(strcmp(token, "sen") || strcmp(token, "cos") ||strcmp(token, "exp")) strcpy(acao, "e");
+            if(strcmp(token, "<sen>") || strcmp(token, "<cos>") ||strcmp(token, "<exp>")) strcpy(acao, "e");
             else {
                 strcpy(acao, "r");
                 estadoAtual = 2;
@@ -214,7 +221,7 @@ Node * acaoNo, * estadoNo;
             break;
 
         case 16:
-            if(token[0] == '/' || token[0] == '*') {
+            if(token[1] == '/' || token[1] == '*') {
                 strcpy(acao, "e");
             }
             else {
@@ -225,7 +232,7 @@ Node * acaoNo, * estadoNo;
             break;
 
         case 17:
-            if(token[0] == '/' || token[0] == '*') {
+            if(token[1] == '/' || token[1] == '*') {
                 strcpy(acao, "e");
             }
             else {
@@ -236,24 +243,146 @@ Node * acaoNo, * estadoNo;
 
             break;
     }
+    printf("Tabela sintatica: \n acao -> %s\n estado -> %d\n\n", acao, estadoAtual);
 
     if(strcmp(acao, "s") == 0) {
 
-        acaoNo = insert_node(NULL, read_str(acao));
+        printf("Shift\n\n");
+
+    } else if(strcmp(acao, "r")) {
+
+        switch(acao[1]) {
+
+        case 2:
+            if(token[1] == '+' || token[1] == '-'|| token[1] == '*'|| token[1] == '/') {
+                printf("Sentenca invalida\n");
+                return;
+            }
+
+            strcpy(token, "F");
+            estadoAtual = 3;
+
+            break;
+
+        case 3:
+
+            if(token[1] == '+' || token[1] == '-' || token[1] == '*' || token[1] == '/') {
+                printf("Sentenca invalida\n");
+                return;
+            }
+
+            estadoAtual = 6;
+
+            break;
+
+        case 4:
+
+            estadoAtual = 10;
+            strcpy(token, "F");
+
+            break;
+
+        case 10:
+
+            estadoAtual = 6;
+
+            break;
+
+        case 11:
+
+            if(token[1] == '+' || token[1] == '-'|| token[1] == '*'|| token[1] == '/') {
+                printf("Sentenca invalida\n");
+                return;
+            }
+
+            strcpy(token, "E");
+            estadoAtual = 1;
+
+            break;
+
+        case 12:
+
+            if(token[1] == '+' || token[1] == '-'|| token[1] == '*'|| token[1] == '/') {
+                printf("Sentenca invalida\n");
+                return;
+            }
+
+            strcpy(token, "T");
+            estadoAtual = 2;
+
+            break;
+
+        case 13:
+
+            estadoAtual = 7;
+
+            break;
+
+        case 14:
+
+            estadoAtual = 8;
+
+            break;
+
+        case 15:
+
+            strcpy(token, "E");
+            estadoAtual = 9;
+
+            break;
+
+        default:
+            printf("Sentenca invalida\n");
+            return;
+        }
+
+        printf("Reduziu para %d gerou %s\n\n", estadoAtual, token);
+
+
+    }
+
+
+    printf("Pilha\n");
+
+    int i = 0;
+
+    for(i = pilha->top; i > 0; i--) {
+
+        Node * estado = pilha->nodes[i--];
+
+        if(estado->idx == 0) {
+            printf("Indice: %d | Token: vazio | Estado: %d\n", ++i, estado->idx);
+        } else {
+
+            Node * token = pilha->nodes[i];
+
+            printf("Indice: %d | Token: %s | Estado: %d\n", ++i, token->state, estado->idx);
+        }
+    }
+
+    printf("\n");
+
+    if (strcmp(acao, "a") == 0) {
+        printf("Sentenca aceita\n");
+        return;
+    } else if(strcmp(acao, "e") == 0) {
+        printf("Sentenca invalida\n");
+        return;
+    } else {
+        acaoNo = insert_node(NULL, read_str(token));
         estadoNo = insert_node(&estadoAtual, NULL);
 
         push(pilha, acaoNo);
+        printf("Passou\n");
         push(pilha, estadoNo);
-
-    } else if (strcmp(acao, "a") == 0) {
-        printf("Sentenca aceita\n");
-        return;
-    } else {
-        printf("Sentenca invalida\n");
-        return;
+        printf("Passou\n");
+        printf("Pilha\n");
     }
 
   }
+
+  printf("Sentenca aceita\n");
+
 }
 
 
