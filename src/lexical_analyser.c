@@ -22,9 +22,8 @@ bool analyse(const char *expression)
 
         if ((previous_type == SYM_FLOAT || previous_type == SYM_INTEGER) && (type == SYM_FLOAT || type == SYM_INTEGER))
             type = -1;
-        // printf("%10s ", symbol);
+        printf("%10s ", symbol);
 
-        /*
         switch (type)
         {
         case SYM_INTEGER:
@@ -46,7 +45,6 @@ bool analyse(const char *expression)
             printf("=> erro\n");
             return false;
         }
-        */
     } while ((int)(strlen(aux) / sizeof(char)) > 0);
 
     return true;

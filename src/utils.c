@@ -39,3 +39,8 @@ char * read_str(char * str) {
 
   return dyn_str;
 }
+
+void error(char * msg) {
+  printf("%s\n", msg);
+  exit(1);
+}

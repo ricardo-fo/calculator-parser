@@ -25,7 +25,7 @@ $(PROJ_NAME): $(OBJ)
 	$(CC) -o $(PROJ_NAME) $(OBJ) $(CFLAGS) -lm
 	@echo "\nCompilação finalizada!\nDigite 'make run' e tecle <enter> para executar a aplicacao"
 
-main.o: main.c utils.h parser.h stack.h
+main.o: main.c utils.h parser.h stack.h table.h
 	$(CC) -c main.c $(CFLAGS)
 
 utils.o: utils.h
@@ -42,6 +42,9 @@ lexical_analyser.o: lexical_analyser.h token.h
 
 stack.o: stack.h
 	$(CC) -c stack.c $(CFLAGS)
+
+table.o: table.h utils.h
+	$(CC) -c table.c $(CFLAGS)
 
 # Executar
 run:
